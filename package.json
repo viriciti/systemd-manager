@@ -1,0 +1,19 @@
+{
+  "name": "systemd-manager",
+  "version": "0.0.1",
+  "description": "Exposes systemd manager through dbus",
+  "main": "build/app.js",
+  "scripts": {
+    "build": "coffee --output build --compile ./",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "coffeescript": "^2.3.1",
+    "dbus-native": "^0.2.5"
+  },
+  "devDependencies": {
+    "nodemon": "^1.17.5"
+  }
+}

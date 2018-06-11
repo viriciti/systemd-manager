@@ -23,7 +23,7 @@ class SystemdManager extends EventEmitter
 			unitEvents.forEach (event) =>
 				@manager.on event, (things...) =>
 					[ pid, path, serviceName, state ] = things
-					@emit "unitEvent", { event, pid, path, serviceName, state }
+					@emit event, { pid, path, serviceName, state }
 			cb()
 
 	destroy: ->

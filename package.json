@@ -7,7 +7,10 @@
     "build": "coffee --output build --compile ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "",
+
+  "files": "build",
+
+  "author": "ViriCiti",
   "license": "GPL",
   "dependencies": {
     "coffeescript": "^2.3.1",

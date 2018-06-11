@@ -12,13 +12,13 @@
   unitEvents = ["UnitNew", "UnitRemoved", "JobNew", "JobRemoved", "StartupFinished"];
 
   SystemdManager = class SystemdManager extends EventEmitter {
-    constructor({dbusSocketAddress}) {
+    constructor({dbusSocket}) {
       var bus;
       super();
       this.serviceName = "org.freedesktop.systemd1";
       this.objectPath = "/org/freedesktop/systemd1";
       bus = dbus.systemBus({
-        busAddress: `unix:path=${dbusSocketAddress}`
+        busAddress: `unix:path=${dbusSocket}`
       });
       if (!bus) {
         throw new Error('Could not connect to the DBus system bus.');
@@ -30,22 +30,16 @@
       return this.service.getInterface(this.objectPath, `${this.serviceName}.Manager`, (error, manager) => {
         this.manager = manager;
         if (error) {
-          throw error;
+          cb(error);
         }
         unitEvents.forEach((event) => {
           return this.manager.on(event, (...things) => {
             var path, pid, serviceName, state;
             [pid, path, serviceName, state] = things;
-            return this.emit("unitEvent", {event, pid, path, serviceName, state});
+            return this.emit(event, {pid, path, serviceName, state});
           });
         });
-        return cb();
-      });
-    }
-
-    destroy() {
-      return unitEvents.forEach((event) => {
-        return this.manager.removeAllListeners(event);
+        return cb(null, this.manager);
       });
     }
 

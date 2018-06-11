@@ -24,3 +24,6 @@ systemd.init (error, manager) ->
     console.log('info', info)
 
 ```
+
+### Systemd dbus API
+https://www.freedesktop.org/wiki/Software/systemd/dbus/
